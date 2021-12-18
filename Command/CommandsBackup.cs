@@ -84,14 +84,13 @@ namespace EasySave.Command
                     File.Copy(path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), true);
                 }
                 long length = new FileInfo(Path.Combine(saveWork.Info.FileSource, path)).Length;
-                LogsCommands logCom = new LogsCommands();
                 DateTime time = DateTime.Now;
                 saveWork.State.NbFilesLeftToDo--;
                 saveWork.State.TotalRemainingSize -= saveWork.State.FileSize;
                 saveWork.State.Progression = 100-((double)saveWork.State.TotalRemainingSize * 100 / saveWork.State.TotalDirectorySize);
                 transferTime.Stop();
                 long fileTransferTime = transferTime.ElapsedMilliseconds;
-                logCom.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
+                LogsCommands.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
                 UpdateSate(saveWork);
             }
 

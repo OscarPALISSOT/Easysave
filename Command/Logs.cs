@@ -22,15 +22,17 @@ namespace EasySave.Command
 
     }
 
-    class LogsCommands
+    static class LogsCommands
     {
+        
+        private static object LockLog = new object();
         private static List<Logs> LogsList;
 
         /// <summary>
         /// Create the path of the LogFile
         /// </summary>
         /// <returns>Logfile's path</returns>
-        public static string path()
+        private static string path()
         {
             var MyIni = new IniFile();
             DateTime localDate = DateTime.Today;
@@ -43,7 +45,7 @@ namespace EasySave.Command
         /// <summary>
         /// Create a LogFile if does not exist
         /// </summary>
-        public static void LogFileExist()
+        private static void LogFileExist()
         {
             if (!File.Exists(path()))
             {
@@ -61,13 +63,12 @@ namespace EasySave.Command
         /// <param name="fileTransferTime"></param>
         /// <param name="nbFilesLeftToDo"></param>
         /// <param name="totalFileToCopy"></param>
-        public void AddLogs(string name, string fileSource, string fileTarget, int state, long fileSize, long fileTransferTime, long nbFilesLeftToDo, long fileEncryptionTime, double progression)
+        public static void AddLogs(string name, string fileSource, string fileTarget, int state, long fileSize, long fileTransferTime, long nbFilesLeftToDo, long fileEncryptionTime, double progression)
         {
-            lock (this)
+            lock (LockLog)
             {
-                LogsCommands logCom = new LogsCommands();
                 Logs log = new Logs();
-                LogsList = logCom.GetLogs();
+                LogsList = GetLogs();
                 log.Name = name;
                 log.FileSource = fileSource;
                 log.FileTarget = fileTarget;
@@ -80,7 +81,7 @@ namespace EasySave.Command
                 DateTime time = DateTime.Now;
                 log.Time = time.ToString("dd/MM/yyyy HH:mm:ss ");
                 LogsList.Add(log);
-                logCom.WriteLog(LogsList);
+                WriteLog(LogsList);
             }
             
         }
@@ -89,7 +90,7 @@ namespace EasySave.Command
         /// Get all logs in the object list
         /// </summary>
         /// <returns>The list of logs</returns>
-        public List<Logs> GetLogs()
+        public static List<Logs> GetLogs()
         {
 
             var MyIni = new IniFile();
@@ -133,30 +134,27 @@ namespace EasySave.Command
         /// Write log(s) in daily log file
         /// </summary>
         /// <param name="LogsList">The list of log(s)</param>
-        public void WriteLog(List<Logs> LogsList)
+        public static void WriteLog(List<Logs> LogsList)
         {
-            lock (this)
+            LogFileExist();
+            var MyIni = new IniFile();
+            if (MyIni.Read("LogFormat") == ".xml")
             {
                 LogFileExist();
-                var MyIni = new IniFile();
-                if (MyIni.Read("LogFormat") == ".xml")
-                {
-                    LogFileExist();
-                    XmlSerializer serialiser = new XmlSerializer(typeof(List<Logs>));
-                    XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
-                    ns.Add("", "");
-                    TextWriter Filestream = new StreamWriter(path());
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Logs>));
+                XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
+                ns.Add("", "");
+                TextWriter Filestream = new StreamWriter(path());
 
-                    serialiser.Serialize(Filestream, LogsList, ns);
+                serializer.Serialize(Filestream, LogsList, ns);
 
-                    Filestream.Close();
-                }
-                else
-                {
-                    var options = new JsonSerializerOptions { WriteIndented = true };
-                    var jsonStringState = JsonSerializer.Serialize(LogsList, options);
-                    File.WriteAllText(path(), jsonStringState);
-                }
+                Filestream.Close();
+            }
+            else
+            {
+                var options = new JsonSerializerOptions { WriteIndented = true };
+                var jsonStringState = JsonSerializer.Serialize(LogsList, options);
+                File.WriteAllText(path(), jsonStringState);
             }
         }
     }
