@@ -1,0 +1,82 @@
+﻿<UserControl x:Class="EasySave.View.Save.StateBackupView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EasySave.View.Save"
+             xmlns:viewModelSave="clr-namespace:EasySave.ViewModel.Save"
+             mc:Ignorable="d" 
+             d:DesignHeight="460" d:DesignWidth="660"             
+             Background="#262626">
+
+    <Grid>
+        <Label Content="State backup" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top" BorderThickness="1" FontSize="25" FontWeight="Heavy" Foreground="White"/>
+
+        <Grid Margin="100,200,130,125">
+            <ListView ItemsSource="{Binding dataList}" Margin="-90,-60,-120,35" Name="dataGrid">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Selected}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Backup" 
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="State"
+                                        DisplayMemberBinding="{Binding State}"/>
+                        <GridViewColumn Header="Progress bar">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding Progression}" Name="progressbar" />
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="%">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Progression}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Source" 
+                                        DisplayMemberBinding="{Binding FileSource}"/>
+                        <GridViewColumn Header="Target" 
+                                        DisplayMemberBinding="{Binding FileTarget}"/>
+                        <GridViewColumn Header="Type" 
+                                        DisplayMemberBinding="{Binding Full}"/>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding ReturnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ReturnCommand}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content=""
+            HorizontalAlignment="Center" 
+            Margin="0,354,0,0" 
+            VerticalAlignment="Top" 
+            Height="42" 
+            Width="100"
+            Command="{Binding PauseCommand}"/>
+
+        <Image Source="/View/Icone/play.png" Margin="292,358,322,72"/>
+        <Image Source="/View/Icone/bouton-pause.png" Margin="327,356,293,70"/>
+    </Grid>
+</UserControl>

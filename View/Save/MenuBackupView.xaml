@@ -1,0 +1,81 @@
+﻿<UserControl x:Class="EasySave.View.Save.MenuBackupView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EasySave.View.Save"
+      xmlns:viewModelSave="clr-namespace:EasySave.ViewModel.Save"
+      mc:Ignorable="d" 
+      d:DesignHeight="460" d:DesignWidth="660"
+      Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModelSave:MenuBackupViewVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Label Content="{Binding title}" HorizontalAlignment="Center" Margin="0,57,0,0" VerticalAlignment="Top" Width="323" FontSize="25" FontWeight="Heavy" Foreground="White"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding ReturnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ReturnCommand}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding button1}" 
+            HorizontalAlignment="Left" 
+            Margin="80,163,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="220"
+            Command="{Binding ExecuteBackupCommand}"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding button2}" 
+            HorizontalAlignment="Left" 
+            Margin="345,163,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="225"
+            Command="{Binding CreateBackupCommand}"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding button3}" 
+            HorizontalAlignment="Left" 
+            Margin="80,260,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="220"
+            Command="{Binding ModifyBackupCommand}"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding button4}" 
+            HorizontalAlignment="Left" 
+            Margin="345,260,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="225"
+            Command="{Binding DeleteBackupCommand}"/>
+
+        <Image Source="/View/Icone/delete.png" Margin="350,284,262,146"/>
+        <Image Source="/View/Icone/download.png" Margin="90,183,522,240"/>
+        <Image Source="/View/Icone/plus.png" Margin="358,183,262,240"/>
+        <Image Source="/View/Icone/edit.png" Margin="90,280,522,146"/>
+        
+    </Grid>
+</UserControl>

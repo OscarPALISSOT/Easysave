@@ -1,0 +1,327 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="BS1" xml:space="preserve">
+    <value>Current business software(s) which stop</value>
+  </data>
+  <data name="BS2" xml:space="preserve">
+    <value>SaveWork(s) at their launch</value>
+  </data>
+  <data name="BS3" xml:space="preserve">
+    <value>New software</value>
+  </data>
+  <data name="BS4" xml:space="preserve">
+    <value>Add a new business software</value>
+  </data>
+  <data name="BS5" xml:space="preserve">
+    <value>Delete business software(s) selected</value>
+  </data>
+  <data name="CBV1" xml:space="preserve">
+    <value>Choose an appellation</value>
+  </data>
+  <data name="CBV2" xml:space="preserve">
+    <value>Choose a source directory</value>
+  </data>
+  <data name="CBV3" xml:space="preserve">
+    <value>Choose a target directory</value>
+  </data>
+  <data name="CBV4" xml:space="preserve">
+    <value>Choose a type</value>
+  </data>
+  <data name="CBV5" xml:space="preserve">
+    <value>Create backup</value>
+  </data>
+  <data name="DBV1" xml:space="preserve">
+    <value>Which backup do you want to delete?</value>
+  </data>
+  <data name="DBV2" xml:space="preserve">
+    <value>You have the choice between:</value>
+  </data>
+  <data name="DBV3" xml:space="preserve">
+    <value>Delete backup(s) chosen</value>
+  </data>
+  <data name="Decrypt" xml:space="preserve">
+    <value>Restore backup</value>
+  </data>
+  <data name="EBV1" xml:space="preserve">
+    <value>Which backup do you want to execute?</value>
+  </data>
+  <data name="EBV2" xml:space="preserve">
+    <value>You have the choice between:</value>
+  </data>
+  <data name="EBV3" xml:space="preserve">
+    <value>Execute backup(s) chosen</value>
+  </data>
+  <data name="EKV1" xml:space="preserve">
+    <value>Current extension(s) for files to encrypt</value>
+  </data>
+  <data name="EKV2" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="EKV3" xml:space="preserve">
+    <value>Add a new extension</value>
+  </data>
+  <data name="EKV4" xml:space="preserve">
+    <value>Delete extension(s) selected</value>
+  </data>
+  <data name="EV1" xml:space="preserve">
+    <value>Current key for Encryption:</value>
+  </data>
+  <data name="EV2" xml:space="preserve">
+    <value>New key for Encryption:</value>
+  </data>
+  <data name="EV3" xml:space="preserve">
+    <value>Generate new key</value>
+  </data>
+  <data name="EV4" xml:space="preserve">
+    <value>Change the key</value>
+  </data>
+  <data name="HV1" xml:space="preserve">
+    <value>Welcome to EasySave</value>
+  </data>
+  <data name="LE1" xml:space="preserve">
+    <value>The current log extention is:</value>
+  </data>
+  <data name="LE2" xml:space="preserve">
+    <value>Select the new log extention desired</value>
+  </data>
+  <data name="LE3" xml:space="preserve">
+    <value>Change log extension</value>
+  </data>
+  <data name="LFP1" xml:space="preserve">
+    <value>The existing path for the log file is:</value>
+  </data>
+  <data name="LFP2" xml:space="preserve">
+    <value>Select the new desired path:</value>
+  </data>
+  <data name="LFP3" xml:space="preserve">
+    <value>Change path</value>
+  </data>
+  <data name="MB1" xml:space="preserve">
+    <value>What do you want to do?</value>
+  </data>
+  <data name="MB2" xml:space="preserve">
+    <value>Execute backup</value>
+  </data>
+  <data name="MB3" xml:space="preserve">
+    <value>Create backup</value>
+  </data>
+  <data name="MB4" xml:space="preserve">
+    <value>Modify backup</value>
+  </data>
+  <data name="MB5" xml:space="preserve">
+    <value>Delete backup</value>
+  </data>
+  <data name="MBV1" xml:space="preserve">
+    <value>Which backup do you want to modify?</value>
+  </data>
+  <data name="MBV2" xml:space="preserve">
+    <value>You have the choice between:</value>
+  </data>
+  <data name="MBV3" xml:space="preserve">
+    <value>Modify backup</value>
+  </data>
+  <data name="MEV1" xml:space="preserve">
+    <value>Encryption key</value>
+  </data>
+  <data name="MEV2" xml:space="preserve">
+    <value>Add file extension to encrypt</value>
+  </data>
+  <data name="MPV1" xml:space="preserve">
+    <value>Which path do you want to change?</value>
+  </data>
+  <data name="MPV2" xml:space="preserve">
+    <value>The log file path</value>
+  </data>
+  <data name="MPV3" xml:space="preserve">
+    <value>The state file path</value>
+  </data>
+  <data name="MPV4" xml:space="preserve">
+    <value>The save file path</value>
+  </data>
+  <data name="MW1" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="MW2" xml:space="preserve">
+    <value>SaveWorks</value>
+  </data>
+  <data name="MW3" xml:space="preserve">
+    <value>SaveWorks</value>
+  </data>
+  <data name="MW4" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="PF1" xml:space="preserve">
+    <value>High-priority files's types</value>
+  </data>
+  <data name="PF2" xml:space="preserve">
+    <value>Add a type</value>
+  </data>
+  <data name="PF3" xml:space="preserve">
+    <value>Delete a type</value>
+  </data>
+  <data name="ReturnButton" xml:space="preserve">
+    <value>Return</value>
+  </data>
+  <data name="SAL" xml:space="preserve">
+    <value>Choose a language</value>
+  </data>
+  <data name="SFP1" xml:space="preserve">
+    <value>The existing path for the save file is:</value>
+  </data>
+  <data name="SFP2" xml:space="preserve">
+    <value>Select the new desired path:</value>
+  </data>
+  <data name="SFP3" xml:space="preserve">
+    <value>Change path</value>
+  </data>
+  <data name="shortcuts" xml:space="preserve">
+    <value>Shortcuts</value>
+  </data>
+  <data name="STFP1" xml:space="preserve">
+    <value>The existing path for the state file is:</value>
+  </data>
+  <data name="STFP2" xml:space="preserve">
+    <value>Select the new desired path:</value>
+  </data>
+  <data name="STFP3" xml:space="preserve">
+    <value>Change path</value>
+  </data>
+  <data name="SV1" xml:space="preserve">
+    <value>What do you want to do?</value>
+  </data>
+  <data name="SV2" xml:space="preserve">
+    <value>Encryption</value>
+  </data>
+  <data name="SV3" xml:space="preserve">
+    <value>Files path</value>
+  </data>
+  <data name="SV4" xml:space="preserve">
+    <value>Log extension</value>
+  </data>
+  <data name="SV5" xml:space="preserve">
+    <value>Business software</value>
+  </data>
+  <data name="SV6" xml:space="preserve">
+    <value>Change language</value>
+  </data>
+  <data name="SV7" xml:space="preserve">
+    <value>High-priority files</value>
+  </data>
+</root>

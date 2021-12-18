@@ -1,0 +1,85 @@
+﻿<UserControl x:Class="EasySave.View.Settings.EncryptionKeyView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EasySave.View.Settings"
+             xmlns:viewModelSettings="clr-namespace:EasySave.ViewModel.Settings"
+             mc:Ignorable="d" 
+             d:DesignHeight="460" d:DesignWidth="660"
+             Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModelSettings:EncryptionKeyViewVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding ReturnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ButtonReturn}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+
+        <Grid Margin="100,200,130,125">
+            <ListView ItemsSource="{Binding extentionList}" Margin="112,-80,110,81">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Selected}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Extention(s)"
+                                        DisplayMemberBinding="{Binding Ext}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+            <Label Content="{Binding Labelnew}" HorizontalAlignment="Left" Margin="90,68,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="White" Height="26" Width="85"/>
+        </Grid>
+
+        <Button 
+            Content="{Binding addExt}"
+            HorizontalAlignment="Left" 
+            Margin="195,313,0,0" VerticalAlignment="Top"
+            Style="{StaticResource ThemeButtonReturn}" Height="34" Width="240"
+            Command="{Binding AddNewExtention}"/>
+
+        <Button 
+            Content="{Binding delExt}"
+            HorizontalAlignment="Left" 
+            Margin="195,365,0,0" 
+            VerticalAlignment="Top"
+            Style="{StaticResource ThemeButtonReturn}" 
+            Height="34" 
+            Width="240"
+            Command="{Binding DeleteExtention}"/>
+
+        <Label Content="{Binding title}" 
+               HorizontalAlignment="Center" 
+               Height="42" 
+               Margin="0,67,0,0" 
+               VerticalAlignment="Top" 
+               Width="506"
+               Foreground="White"
+               FontWeight="Bold"
+               FontSize="24"/>
+
+        <TextBox 
+            HorizontalAlignment="Left" 
+            Margin="250,275,0,0" 
+            TextWrapping="Wrap" 
+            VerticalAlignment="Top"
+            Width="170" 
+            Height="16"
+            Text="{Binding extention}"/>
+
+    </Grid>
+</UserControl>

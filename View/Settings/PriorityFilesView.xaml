@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="EasySave.View.Settings.PriorityFilesView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EasySave.View.Settings"
+      xmlns:viewModelSettings="clr-namespace:EasySave.ViewModel.Settings"
+      mc:Ignorable="d" 
+      d:DesignHeight="460" d:DesignWidth="660"
+      Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModelSettings:PriorityFilesVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding ReturnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ButtonReturn}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+
+        <Label 
+            Content="{Binding Title}" 
+            HorizontalAlignment="Center" 
+            Margin="0,62,0,0" 
+            VerticalAlignment="Top" 
+            BorderThickness="1" 
+            FontSize="23" 
+            FontWeight="Heavy" 
+            Foreground="White" 
+            Height="40" Width="352"/>
+
+        <Grid Margin="100,158,130,167">
+            <ListView ItemsSource="{Binding fileList}" Margin="0,0,0,0">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding Selected}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="PriorityFile"
+                                        DisplayMemberBinding="{Binding File}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Button 
+            Style="{StaticResource ThemeButtonReturn}"
+            HorizontalAlignment="Center" 
+            Margin="0,355,0,0" 
+            VerticalAlignment="Top" 
+            Height="30" 
+            Width="260"
+            Content="{Binding Add}"
+            Command="{Binding AddFile}"/>
+
+        <Button 
+            Style="{StaticResource ThemeButtonReturn}"
+            HorizontalAlignment="Center" 
+            Margin="0,390,0,0" 
+            VerticalAlignment="Top" 
+            Height="34" 
+            Width="260"
+            Content="{Binding Delete}"
+            Command="{Binding DeleteFile}"/>
+        <TextBox FontSize="10" 
+                 HorizontalAlignment="Left" 
+                 Margin="315,301,0,0" 
+                 TextWrapping="Wrap" 
+                 VerticalAlignment="Top" 
+                 Width="106" 
+                 Height="24" 
+                 FontWeight="Bold"
+                 Text ="{Binding newFile}"
+                 />
+        
+        <Label Content="{Binding New}" HorizontalAlignment="Left" Margin="212,300,0,0" VerticalAlignment="Top" FontWeight="Bold" Foreground="White"/>
+    </Grid>
+</UserControl>

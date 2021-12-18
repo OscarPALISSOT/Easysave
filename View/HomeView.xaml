@@ -1,0 +1,58 @@
+﻿<UserControl x:Class="EasySave.View.HomeView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EasySave.View"
+             xmlns:viewModel="clr-namespace:EasySave.ViewModel"
+             mc:Ignorable="d" 
+             d:DesignHeight="460" d:DesignWidth="660"
+             Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModel:HomeVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Label Content="{Binding title}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Width="360" FontSize="28" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
+        <Image HorizontalAlignment="Center" Height="135" Margin="0,95,0,0" VerticalAlignment="Top" Width="136" Source="/View/Icone/logo.png"/>
+        <Label Content="Version 3.0" HorizontalAlignment="Left" Margin="579,405,0,0" VerticalAlignment="Top" Width="70" Foreground="White"/>
+        <Label Content="Anthony EBERHARD, Oscar PALISSOT, Valentin RAGGIOLI" HorizontalAlignment="Left" Margin="334,424,0,0" VerticalAlignment="Top" Width="315" Foreground="White"/>
+        <Button 
+            FontWeight="Bold"
+            Content="{Binding button1}"
+            Style="{StaticResource ThemeButtonReturn}" 
+            HorizontalAlignment="Left" 
+            Margin="21,303,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="187"
+            Command="{Binding ExecuteBackupViewCommand}">
+        </Button>
+        <Image Source="/View/Icone/download.png" Margin="21,323,594,100"/>
+        <Button 
+            FontWeight="Bold"
+            Content="{Binding button2}"
+            Style="{StaticResource ThemeButtonReturn}" 
+            HorizontalAlignment="Center" 
+            Margin="0,304,0,0" 
+            VerticalAlignment="Top" 
+            Height="76" 
+            Width="212"
+            Command="{Binding DecryptViewCommand}"/>
+        <Button 
+            FontWeight="Bold"
+            Content="{Binding button3}"
+            Style="{StaticResource ThemeButtonReturn}" 
+            HorizontalAlignment="Left" 
+            Margin="451,303,0,0" 
+            VerticalAlignment="Top" 
+            Height="77" 
+            Width="187"
+            Command="{Binding CreateBackupViewCommand}"/>
+
+        <Image Source="/View/Icone/curve-arrow.png" Margin="220,326,382,102"/>
+        <Image Source="/View/Icone/plus.png" Margin="446,326,156,102"/>
+
+    </Grid>
+</UserControl>

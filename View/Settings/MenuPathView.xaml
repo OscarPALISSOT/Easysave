@@ -1,0 +1,61 @@
+﻿<UserControl x:Class="EasySave.View.Settings.MenuPathView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:EasySave.View.Settings"
+      xmlns:viewModelSettings="clr-namespace:EasySave.ViewModel.Settings"
+      mc:Ignorable="d" 
+      d:DesignHeight="460" d:DesignWidth="660"
+      Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModelSettings:MenuPathVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Button 
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding log}" 
+            FontWeight="Bold"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Height="48" 
+            Width="220" Margin="0,167,0,0"
+            Command="{Binding LogFileViewCommand}"/>
+        <Button 
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding state}" 
+            FontWeight="Bold"
+            HorizontalAlignment="Center" 
+            VerticalAlignment="Top" 
+            Height="48" 
+            Width="220" Margin="0,230,0,0"
+            Command="{Binding StateFileViewCommand}"
+            />
+        <Button 
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding save}"
+            FontWeight="Bold"
+            HorizontalAlignment="Center" 
+            Margin="0,292,0,0" 
+            VerticalAlignment="Top" 
+            Height="48" 
+            Width="220"
+            Command="{Binding SaveFileViewCommand}"
+            />
+        <Label Content="{Binding title}" HorizontalAlignment="Center" Margin="0,90,0,0" VerticalAlignment="Top" Width="456" FontSize="25" FontWeight="Heavy" Foreground="White"/>
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding ReturnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ReturnViewCommand}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+        
+    </Grid>
+</UserControl>

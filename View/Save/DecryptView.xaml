@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="EasySave.View.Save.DecryptView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModelSave="clr-namespace:EasySave.ViewModel.Save"
+             xmlns:local="clr-namespace:EasySave.View.Save"
+             mc:Ignorable="d" 
+             d:DesignHeight="460" d:DesignWidth="660"
+             Background="#262626">
+
+    <UserControl.DataContext>
+        <viewModelSave:DecryptViewVM/>
+    </UserControl.DataContext>
+
+    <Grid>
+        <Label Content="{Binding decrypt}" HorizontalAlignment="Center" Margin="0,67,0,0" VerticalAlignment="Top" BorderThickness="1" FontSize="25" FontWeight="Heavy" Foreground="White"/>
+
+        <Grid Margin="100,200,130,125">
+            <ListView ItemsSource="{Binding nameList}" Margin="-85,-45,-105,20">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn>
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding selected}"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Backup" 
+                                        DisplayMemberBinding="{Binding Name}"/>
+                        <GridViewColumn Header="Source" 
+                                        DisplayMemberBinding="{Binding Info.FileSource}"/>
+                        <GridViewColumn Header="Target" 
+                                        DisplayMemberBinding="{Binding Info.FileTarget}"/>
+                        <GridViewColumn Header="Type" 
+                                        DisplayMemberBinding="{Binding Info.Full}"/>
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </Grid>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding returnButton}"
+            HorizontalAlignment="Left" 
+            Margin="20,23,0,0" 
+            VerticalAlignment="Top" 
+            Height="39" 
+            Width="105"
+            Command="{Binding ReturnButton}"/>
+        <Image Source="/View/Icone/return.png" Margin="26,31,611,406"/>
+
+        <Button 
+            FontWeight="Bold"
+            Style="{StaticResource ThemeButtonReturn}"
+            Content="{Binding decrypt}"
+            HorizontalAlignment="Center" 
+            Margin="0,350,0,0" 
+            VerticalAlignment="Top" 
+            Height="30" 
+            Width="220"
+            Command="{Binding Decrypt}"/>
+
+    </Grid>
+</UserControl>
