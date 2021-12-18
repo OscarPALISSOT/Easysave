@@ -1,0 +1,106 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <RootNamespace>EasySave</RootNamespace>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>logo.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="View\Icone\analysis.png" />
+    <None Remove="View\Icone\bouton-pause.png" />
+    <None Remove="View\Icone\close.png" />
+    <None Remove="View\Icone\crypte.png" />
+    <None Remove="View\Icone\curve-arrow.png" />
+    <None Remove="View\Icone\delete.png" />
+    <None Remove="View\Icone\diskette.png" />
+    <None Remove="View\Icone\download.png" />
+    <None Remove="View\Icone\edit.png" />
+    <None Remove="View\Icone\folder.png" />
+    <None Remove="View\Icone\france.png" />
+    <None Remove="View\Icone\graphic-progression.png" />
+    <None Remove="View\Icone\home.png" />
+    <None Remove="View\Icone\important.png" />
+    <None Remove="View\Icone\language.png" />
+    <None Remove="View\Icone\Logo.png" />
+    <None Remove="View\Icone\passkey.png" />
+    <None Remove="View\Icone\play.png" />
+    <None Remove="View\Icone\plus.png" />
+    <None Remove="View\Icone\power-off.png" />
+    <None Remove="View\Icone\return.png" />
+    <None Remove="View\Icone\setting.png" />
+    <None Remove="View\Icone\software.png" />
+    <None Remove="View\Icone\united-states.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <COMReference Include="EventSystemLib">
+      <WrapperTool>tlbimp</WrapperTool>
+      <VersionMinor>0</VersionMinor>
+      <VersionMajor>1</VersionMajor>
+      <Guid>4e14fb90-2e22-11d1-9964-00c04fbbb345</Guid>
+      <Lcid>0</Lcid>
+      <Isolated>false</Isolated>
+      <EmbedInteropTypes>true</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.Data" Version="21.2.3" />
+    <PackageReference Include="Microsoft.Practices.ObjectBuilder.dll" Version="3.1.0" />
+    <PackageReference Include="Prism.Core" Version="8.1.97" />
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="View\Icone\analysis.png" />
+    <Resource Include="View\Icone\bouton-pause.png" />
+    <Resource Include="View\Icone\close.png" />
+    <Resource Include="View\Icone\crypte.png" />
+    <Resource Include="View\Icone\curve-arrow.png" />
+    <Resource Include="View\Icone\delete.png" />
+    <Resource Include="View\Icone\diskette.png" />
+    <Resource Include="View\Icone\download.png" />
+    <Resource Include="View\Icone\edit.png" />
+    <Resource Include="View\Icone\folder.png" />
+    <Resource Include="View\Icone\france.png" />
+    <Resource Include="View\Icone\graphic-progression.png" />
+    <Resource Include="View\Icone\home.png" />
+    <Resource Include="View\Icone\important.png" />
+    <Resource Include="View\Icone\language.png" />
+    <Resource Include="View\Icone\logo.png" />
+    <Resource Include="View\Icone\passkey.png" />
+    <Resource Include="View\Icone\play.png" />
+    <Resource Include="View\Icone\plus.png" />
+    <Resource Include="View\Icone\power-off.png" />
+    <Resource Include="View\Icone\return.png" />
+    <Resource Include="View\Icone\setting.png" />
+    <Resource Include="View\Icone\software.png" />
+    <Resource Include="View\Icone\united-states.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="View\Ressources\Resource1.Designer.cs">
+      <DependentUpon>Resource1.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="View\Ressources\Resource1.fr.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="View\Ressources\Resource1.resx">
+      <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
+      <Generator>PublicResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
+
+</Project>

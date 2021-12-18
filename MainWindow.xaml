@@ -1,0 +1,118 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:EasySave2._0"
+        xmlns:viewModel="clr-namespace:EasySave.ViewModel"
+        xmlns:View="clr-namespace:EasySave.View" 
+        x:Class="EasySave2._0.MainWindow"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="600" Width="920"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="NoResize"
+        Background="Transparent"
+        AllowsTransparency="True"
+        MouseDown="Window_MouseDown">
+
+    <Window.DataContext>
+        <viewModel:MainWindowsVM/>
+    </Window.DataContext>
+
+    <Border Background="#262626" BorderThickness="5,20,5,5" BorderBrush="#595959" CornerRadius="30">
+
+        <Grid >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="710"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="500"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="EasySave"
+                       Foreground="#F26716"
+                       FontSize="22"
+                       FontWeight="ExtraBold"
+                       Margin="20,25,0,4"/>
+            <Image Source="/View/Icone/logo.png" Margin="110,25,26,15"/>
+
+            <StackPanel Grid.Row="1">
+                <RadioButton
+                    HorizontalAlignment="Left"
+                    Content="{Binding home}"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    FontWeight="Bold"
+                    Style="{StaticResource MenuButtonTheme}"
+                    Command="{Binding HomeViewCommand}" Width="200">
+                </RadioButton>
+
+                <RadioButton
+                    FontWeight="Bold"
+                    HorizontalAlignment="Left"
+                    Content="{Binding backup}"
+                    Height="50"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}" Width="200"
+                    Command="{Binding MenuBackupCommand}"/>
+
+
+                <RadioButton
+                    FontWeight="Bold"
+                    Content="{Binding state}"
+                    Height="60"
+                    Foreground="White"
+                    FontSize="14"
+                    Style="{StaticResource MenuButtonTheme}"
+                    Command="{Binding StateViewCommand}"/>
+            </StackPanel>
+
+            <RadioButton
+                FontWeight="Bold"
+                Content="{Binding settings}"
+                Height="50"
+                Foreground="White"
+                FontSize="14"
+                Style="{StaticResource MenuButtonTheme}" 
+                Margin="0,405,0,45" 
+                Grid.Row="1"
+                Command="{Binding SettingsViewCommand}"/>
+
+            <ContentControl
+                Grid.Row="1"
+                Grid.Column="1"
+                Content="{Binding CurrentView}" Margin="25,20,25,20"/>
+
+            <RadioButton
+                FontWeight="Bold"
+                VerticalAlignment="Center"
+                HorizontalAlignment="Left"
+                Height="35"
+                Foreground="White"
+                FontSize="14"
+                Style="{StaticResource MenuButtonTheme}" 
+                Margin="640,0,0,0"
+                Command="{Binding ShutDown}"
+                Grid.Column="1" 
+                Width="35">
+                <RadioButton.Background>
+                    <ImageBrush ImageSource="/View/Icone/power-off.png"/>
+                </RadioButton.Background>
+            </RadioButton>
+
+            <Border BorderThickness="0,0,3,0" BorderBrush="#A65526" HorizontalAlignment="Center" Height="500" VerticalAlignment="Center" Width="200" Grid.Row="1"/>
+            <Border BorderThickness="0,0,3,0" BorderBrush="#A65526"/>
+            
+            <Image Source="/View/Icone/home.png" HorizontalAlignment="Left" Height="30" Margin="16,10,0,0" VerticalAlignment="Top" Width="34" Grid.Row="1"/>
+            <Image Source="/View/Icone/setting.png" HorizontalAlignment="Left" Height="34" Margin="14,413,0,0" VerticalAlignment="Top" Width="36" Grid.Row="1"/>
+            <Image Source="/View/Icone/diskette.png" HorizontalAlignment="Left" Height="32" Margin="18,60,0,0" VerticalAlignment="Top" Width="25" Grid.Row="1"/>
+            <Image Source="/View/Icone/graphic-progression.png" HorizontalAlignment="Left" Height="30" Margin="16,110,0,0" VerticalAlignment="Top" Width="32" Grid.Row="1"/>
+        </Grid>
+    </Border>
+</Window>
