@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "test",
+    "FileSource": "C:\\Users\\Oscar\\Desktop\\test\\testfolder - Copie (2)\\IMG_0794.jpg",
+    "FileTarget": "C:\\Users\\Oscar\\Desktop\\testtarget\\testfolder - Copie (2)\\IMG_0794.jpg",
+    "State": 2,
+    "FileSize": 198905,
+    "FileTransferTime": 7,
+    "FileEncryptionTime": 0,
+    "Time": "18/12/2021 23:10:48 ",
+    "NbFilesLeftToDo": 0,
+    "Progression": 100
+  }
+]

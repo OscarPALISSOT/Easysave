@@ -1,0 +1,14 @@
+[
+  {
+    "Name": "test",
+    "FileSource": "C:\\Users\\Oscar\\Desktop\\test",
+    "FileTarget": "C:\\Users\\Oscar\\Desktop\\testtarget",
+    "Full": true
+  },
+  {
+    "Name": "test2",
+    "FileSource": "C:\\Users\\Oscar\\Desktop\\test2",
+    "FileTarget": "C:\\Users\\Oscar\\Desktop\\testtarget2",
+    "Full": true
+  }
+]

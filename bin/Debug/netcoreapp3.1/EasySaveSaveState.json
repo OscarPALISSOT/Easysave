@@ -1,0 +1,22 @@
+[
+  {
+    "Name": "test2",
+    "State": 2,
+    "TotalFileToCopy": 4,
+    "TotalDirectorySize": 198933,
+    "TotalRemainingSize": 0,
+    "FileSize": 8,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100
+  },
+  {
+    "Name": "test",
+    "State": 2,
+    "TotalFileToCopy": 5,
+    "TotalDirectorySize": 397838,
+    "TotalRemainingSize": 0,
+    "FileSize": 8,
+    "NbFilesLeftToDo": 0,
+    "Progression": 100
+  }
+]
