@@ -62,7 +62,6 @@ namespace EasySave.Command
         /// <param name="fileSize"></param>
         /// <param name="fileTransferTime"></param>
         /// <param name="nbFilesLeftToDo"></param>
-        /// <param name="totalFileToCopy"></param>
         public static void AddLogs(string name, string fileSource, string fileTarget, int state, long fileSize, long fileTransferTime, long nbFilesLeftToDo, long fileEncryptionTime, double progression)
         {
             lock (LockLog)
@@ -90,7 +89,7 @@ namespace EasySave.Command
         /// Get all logs in the object list
         /// </summary>
         /// <returns>The list of logs</returns>
-        public static List<Logs> GetLogs()
+        private static List<Logs> GetLogs()
         {
 
             var MyIni = new IniFile();
@@ -134,7 +133,7 @@ namespace EasySave.Command
         /// Write log(s) in daily log file
         /// </summary>
         /// <param name="LogsList">The list of log(s)</param>
-        public static void WriteLog(List<Logs> LogsList)
+        private static void WriteLog(List<Logs> LogsList)
         {
             LogFileExist();
             var MyIni = new IniFile();
