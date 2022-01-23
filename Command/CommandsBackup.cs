@@ -9,10 +9,33 @@ using System.Text.Json;
 
 namespace EasySave.Command
 {
+    
+    public sealed class SingletonLock
+    {
+        private static SingletonLock _instance = null;
+        private static readonly object Padlock = new object();
+
+        SingletonLock()
+        {
+        }
+
+        public static SingletonLock Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new SingletonLock();
+                    }
+                    return _instance;
+                }
+            }
+        }
+    }
     static class CommandsBackup
     {
-
-        private static object LOCK = new object();
 
         /// <summary>
         /// Execute the BackupWork chosen
@@ -87,8 +110,11 @@ namespace EasySave.Command
                 saveWork.State.Progression = 100-((double)saveWork.State.TotalRemainingSize * 100 / saveWork.State.TotalDirectorySize);
                 transferTime.Stop();
                 long fileTransferTime = transferTime.ElapsedMilliseconds;
-                logCom.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
-                UpdateSate(saveWork);
+                lock (SingletonLock.Instance)
+                {
+                    logCom.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
+                    UpdateSate(saveWork);
+                }
             }
 
             void SaveListFile(SaveWork saveWork, List<string> files)
@@ -151,29 +177,26 @@ namespace EasySave.Command
 
         private static void UpdateSate(SaveWork saveWork)
         {
-            lock (LOCK)
+            var MyIni = new IniFile();
+            List<SaveWork> BackupsUpdated = GetAllBackups();
+            SaveWork BackupToDel = GetBackup(saveWork.Name);
+            foreach (var backup in BackupsUpdated)
             {
-                var MyIni = new IniFile();
-                List<SaveWork> BackupsUpdated = GetAllBackups();
-                SaveWork BackupToDel = GetBackup(saveWork.Name);
-                foreach (var backup in BackupsUpdated)
+                if (backup.Name == saveWork.Name)
                 {
-                    if (backup.Name == saveWork.Name)
-                    {
-                        BackupToDel = backup;
-                    }
+                    BackupToDel = backup;
                 }
-                BackupsUpdated.Remove(BackupToDel);
-                BackupsUpdated.Add(saveWork);
-                List<SaveState> BackupsState = new List<SaveState>();
-                foreach (var backup in BackupsUpdated)
-                {
-                    BackupsState.Add(backup.State);
-                }
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var jsonStringState = JsonSerializer.Serialize(BackupsState, options);
-                File.WriteAllText(MyIni.Read("SaveState"), jsonStringState);
             }
+            BackupsUpdated.Remove(BackupToDel);
+            BackupsUpdated.Add(saveWork);
+            List<SaveState> BackupsState = new List<SaveState>();
+            foreach (var backup in BackupsUpdated)
+            {
+                BackupsState.Add(backup.State);
+            }
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonStringState = JsonSerializer.Serialize(BackupsState, options);
+            File.WriteAllText(MyIni.Read("SaveState"), jsonStringState);
         }
 
         /// <summary>
