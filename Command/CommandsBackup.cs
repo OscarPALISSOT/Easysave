@@ -9,7 +9,7 @@ using System.Text.Json;
 
 namespace EasySave.Command
 {
-    class CommandsBackup
+    static class CommandsBackup
     {
 
         private static object LOCK = new object();
@@ -29,7 +29,7 @@ namespace EasySave.Command
 
             IsTherePriority(saveWork, priorityFiles, filesList);
 
-            void saveFile(string path)
+            void SaveFile(string path)
             {
                 FileInfo fi = new FileInfo(path);
                 saveWork.State.FileSize = fi.Length;
@@ -113,7 +113,7 @@ namespace EasySave.Command
                     //Copy all the files & Replaces any files with the same name
                     foreach (string path in files)
                     {
-                        saveFile(path);
+                        SaveFile(path);
                     }
                 }
                 else
@@ -134,7 +134,7 @@ namespace EasySave.Command
                     {
                         if (!File.Exists(path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget)))
                         {
-                            saveFile(path);
+                            SaveFile(path);
                         }
                     }
                 }
@@ -182,7 +182,7 @@ namespace EasySave.Command
         /// <param name="saveWork"></param>
         /// <param name="priorityFiles"></param>
         /// <param name="filesList"></param>
-        public static void IsTherePriority(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
+        private static void IsTherePriority(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
         {
             List<string> priorityExtensions = Commands.GetAllPriorityFile();
 
@@ -449,29 +449,27 @@ namespace EasySave.Command
         /// Encrypt or decrypt a file
         /// </summary>
         /// <param name="sourceFile">The file to encrypt or decrypt</param>
-        /// <param name="OutputFile">The file encrypted or decrypted </param>
-        private static long EncryptDecrypt(string sourceFile, string OutputFile)
+        /// <param name="outputFile">The file encrypted or decrypted </param>
+        private static long EncryptDecrypt(string sourceFile, string outputFile)
         {
             var MyIni = new IniFile();
             string key = MyIni.Read("EncryptionKey");
             var process = new ProcessStartInfo
             {
                 FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../netcoreapp3.1/CryptoSoft/netcoreapp3.1/CryptoSoft.exe")),
-                Arguments = sourceFile + " " + OutputFile + " " + key
+                Arguments = sourceFile + " " + outputFile + " " + key
             };
 
-            using (var proc = Process.Start(process))
-            {
-                proc.WaitForExit();
-                return proc.ExitCode;
-            }
+            using var proc = Process.Start(process);
+            proc.WaitForExit();
+            return proc.ExitCode;
         }
 
         /// <summary>
         /// Decrypt a Savework
         /// </summary>
         /// <param name="saveWork">The savework to decrypt</param>
-        public static void DecryptBackup(SaveWork saveWork)
+        private static void DecryptBackup(SaveWork saveWork)
         {
             List<string> extensionCrypt = Commands.GetAllExtensionToCrypt();
             string[] files = Directory.GetFiles(saveWork.Info.FileTarget, "*.*", SearchOption.AllDirectories);
