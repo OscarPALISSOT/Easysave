@@ -456,7 +456,7 @@ namespace EasySave.Command
             string key = MyIni.Read("EncryptionKey");
             var process = new ProcessStartInfo
             {
-                FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../netcoreapp3.1/CryptoSoft/netcoreapp3.1/CryptoSoft.exe")),
+                FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../CryptoSoft/netcoreapp3.1/CryptoSoft.exe")),
                 Arguments = sourceFile + " " + outputFile + " " + key
             };
 
