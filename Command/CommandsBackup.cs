@@ -18,7 +18,7 @@ namespace EasySave.Command
         /// Execute the BackupWork chosen
         /// </summary>
         /// <param name="saveWork">The BackupWork chosen</param>
-        public static void ExecuteBackup(SaveWork saveWork)
+        private static void ExecuteBackup(SaveWork saveWork)
         {
             saveWork.State.Progression = 0;
             saveWork.State.NbFilesLeftToDo = saveWork.State.TotalFileToCopy;
@@ -31,23 +31,19 @@ namespace EasySave.Command
 
             void saveFile(string path)
             {
-
-                Random rnd = new Random();
                 FileInfo fi = new FileInfo(path);
                 saveWork.State.FileSize = fi.Length;
                 bool process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
 
-                while (!saveWork.Play || process)
+                while (process)
                 {
                     process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
-                    Thread.Sleep(rnd.Next(5, 15));
                 }
 
                 bool priorityFilesSaved = IsAllPriorityFilesSaved();
                 while (!priorityFilesSaved)
                 {
                     priorityFilesSaved = IsAllPriorityFilesSaved();
-                    Thread.Sleep(rnd.Next(5, 15));
                 }
 
                 Stopwatch transferTime = new Stopwatch();
@@ -95,7 +91,7 @@ namespace EasySave.Command
                 UpdateSate(saveWork);
             }
 
-            void saveListFile(SaveWork saveWork, List<string> files)
+            void SaveListFile(SaveWork saveWork, List<string> files)
             {
                 if (File.Exists(saveWork.Info.FileSource))
                 {
@@ -146,11 +142,11 @@ namespace EasySave.Command
 
             if (saveWork.Priority)
             {
-                saveListFile(saveWork, priorityFiles);
+                SaveListFile(saveWork, priorityFiles);
                 saveWork.Priority = false;
             }
 
-            saveListFile(saveWork, filesList);
+            SaveListFile(saveWork, filesList);
         }
 
         private static void UpdateSate(SaveWork saveWork)
@@ -508,16 +504,16 @@ namespace EasySave.Command
         /// Start a thread which decrypt a savework 
         /// </summary>
         /// <param name="saveWork">The savework to decrypt</param>
-        public static void DecryptThread(SaveWork saveWork)
+        private static void DecryptThread(SaveWork saveWork)
         {
-            Thread Tdecrypt = new Thread(new ThreadStart(
+            Thread tdecrypt = new Thread(new ThreadStart(
                 () =>
                 {
                     DecryptBackup(saveWork);
                 }
                 )
             );
-            Tdecrypt.Start();
+            tdecrypt.Start();
         }
     }
 }
