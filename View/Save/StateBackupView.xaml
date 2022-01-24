@@ -3,11 +3,14 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EasySave.View.Save"
              xmlns:viewModelSave="clr-namespace:EasySave.ViewModel.Save"
              mc:Ignorable="d" 
              d:DesignHeight="460" d:DesignWidth="660"             
              Background="#262626">
+    
+    <UserControl.DataContext>
+        <viewModelSave:StateBackupViewVM/>
+    </UserControl.DataContext>
 
     <Grid>
         <Label Content="State backup" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top" BorderThickness="1" FontSize="25" FontWeight="Heavy" Foreground="White"/>
@@ -19,7 +22,7 @@
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Selected}"/>
+                                    <CheckBox IsChecked="{Binding Selected }"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
@@ -30,14 +33,14 @@
                         <GridViewColumn Header="Progress bar">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding Progression}" Name="progressbar" />
+                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding CurrentProgression}" Name="progressbar" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="%">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Progression}"/>
+                                    <TextBox Text="{Binding CurrentProgression }"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

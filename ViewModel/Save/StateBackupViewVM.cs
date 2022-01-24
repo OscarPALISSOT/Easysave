@@ -23,8 +23,7 @@ namespace EasySave.ViewModel.Save
 
                 nameList = CommandsBackup.GetAllBackups();
                 dataList = new List<DataList>();
-
-                dataList = new List<DataList>();
+                
                 List<SaveWork> backups = CommandsBackup.GetAllBackups();
                 foreach (var backup in backups)
                 {
@@ -61,22 +60,33 @@ namespace EasySave.ViewModel.Save
                 });
             }
 
-            public class DataList
+            public class DataList: PropertyChangeEvent
             {
                 public string Name { get; set; }
                 public bool Selected { get; set; }
                 public int State { get; set; }
-                public double Progression { get; set; }
                 public string FileTarget { get; set; }
                 public string FileSource { get; set; }
                 public bool Full { get; set; }
+                
+                private object _progression;
+
+                public object CurrentProgression
+                {
+                    get { return _progression; }
+                    set
+                    {
+                        _progression = value;
+                        OnPropertyChanged();
+                    }
+                }
 
                 public DataList(SaveWork saveWork)
                 {
                     Name = saveWork.Name;
                     Selected = saveWork.selected;
                     State = saveWork.State.State;
-                    Progression = saveWork.State.Progression;
+                    CurrentProgression = saveWork.State.Progression;
                     FileSource = saveWork.Info.FileSource;
                     FileTarget = saveWork.Info.FileTarget;
                     Full = saveWork.Info.Full;
