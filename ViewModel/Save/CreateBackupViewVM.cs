@@ -13,9 +13,6 @@ namespace EasySave.ViewModel.Save
         public RelayCommands ReturnButtonCommand { get; set; }
         public RelayCommands CreateBackup { get; set; }
 
-        // Used for traduction 
-        public ResourceManager manager = new ResourceManager(typeof(Resource1));
-
         // Variable collected when backups are created
         public string nameBackup { get; set; }
         public string fileSource { get; set; }

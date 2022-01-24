@@ -10,9 +10,6 @@ namespace EasySave.ViewModel.Save
         // Used for navigation between views
         private readonly MainWindowsVM nav = MainWindowsVM.GetThis();
 
-        // Used for traduction 
-        public ResourceManager manager = new ResourceManager(typeof(Resource1));
-
         // Declaration of commands that will be binded in the view (in buttons)
         public RelayCommands modifyCommand { get; set; }
         public RelayCommands returnButton { get; set; }
