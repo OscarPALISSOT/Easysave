@@ -18,9 +18,6 @@ namespace EasySave.ViewModel
         // Used for navigation between views
         public static MainWindowsVM nav;
 
-        // Used for traduction 
-        public ResourceManager manager = new ResourceManager(typeof(Resource1));
-
         // String for traduction, that will be binded in the view
         public string Save { get; set; }
         public string home { get; set; }
@@ -49,8 +46,6 @@ namespace EasySave.ViewModel
         public HomeVM HomeVM { get; set; }
         public SettingsVM SettingsVM { get; set; }
         public MenuBackupViewVM MenuBackupViewVM { get; set; }
-        public StateFilePathVM StateFilePathVM { get; set; }
-        public ModifyBackupChosenViewVM ModifyBackupChosenVM { get; set; }
         public MainWindowsVM()
         {
             // Used for navigation

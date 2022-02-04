@@ -22,17 +22,15 @@ namespace EasySave.Command
 
     }
 
-    static class LogsCommands
+    class LogsCommands
     {
-        
-        private static object LockLog = new object();
         private static List<Logs> LogsList;
 
         /// <summary>
         /// Create the path of the LogFile
         /// </summary>
         /// <returns>Logfile's path</returns>
-        private static string path()
+        public static string path()
         {
             var MyIni = new IniFile();
             DateTime localDate = DateTime.Today;
@@ -52,6 +50,7 @@ namespace EasySave.Command
                 File.Create(path()).Close();
             }
         }
+
         /// <summary>
         /// Add log informations in the log file
         /// </summary>
@@ -62,34 +61,33 @@ namespace EasySave.Command
         /// <param name="fileSize"></param>
         /// <param name="fileTransferTime"></param>
         /// <param name="nbFilesLeftToDo"></param>
-        public static void AddLogs(string name, string fileSource, string fileTarget, int state, long fileSize, long fileTransferTime, long nbFilesLeftToDo, long fileEncryptionTime, double progression)
+        /// <param name="fileEncryptionTime"></param>
+        /// <param name="progression"></param>
+        public void AddLogs(string name, string fileSource, string fileTarget, int state, long fileSize, long fileTransferTime, long nbFilesLeftToDo, long fileEncryptionTime, double progression)
         {
-            lock (LockLog)
-            {
-                Logs log = new Logs();
-                LogsList = GetLogs();
-                log.Name = name;
-                log.FileSource = fileSource;
-                log.FileTarget = fileTarget;
-                log.State = state;
-                log.FileSize = fileSize;
-                log.FileTransferTime = fileTransferTime;
-                log.FileEncryptionTime = fileEncryptionTime;
-                log.NbFilesLeftToDo = nbFilesLeftToDo;
-                log.Progression = progression;
-                DateTime time = DateTime.Now;
-                log.Time = time.ToString("dd/MM/yyyy HH:mm:ss ");
-                LogsList.Add(log);
-                WriteLog(LogsList);
-            }
-            
+            LogsCommands logCom = new LogsCommands();
+            Logs log = new Logs();
+            LogsList = logCom.GetLogs();
+            log.Name = name;
+            log.FileSource = fileSource;
+            log.FileTarget = fileTarget;
+            log.State = state;
+            log.FileSize = fileSize;
+            log.FileTransferTime = fileTransferTime;
+            log.FileEncryptionTime = fileEncryptionTime;
+            log.NbFilesLeftToDo = nbFilesLeftToDo;
+            log.Progression = progression;
+            DateTime time = DateTime.Now;
+            log.Time = time.ToString("dd/MM/yyyy HH:mm:ss ");
+            LogsList.Add(log);
+            logCom.WriteLog(LogsList);
         }
 
         /// <summary>
         /// Get all logs in the object list
         /// </summary>
         /// <returns>The list of logs</returns>
-        private static List<Logs> GetLogs()
+        private List<Logs> GetLogs()
         {
 
             var MyIni = new IniFile();
@@ -133,21 +131,21 @@ namespace EasySave.Command
         /// Write log(s) in daily log file
         /// </summary>
         /// <param name="LogsList">The list of log(s)</param>
-        private static void WriteLog(List<Logs> LogsList)
+        private void WriteLog(List<Logs> LogsList)
         {
             LogFileExist();
             var MyIni = new IniFile();
             if (MyIni.Read("LogFormat") == ".xml")
             {
                 LogFileExist();
-                XmlSerializer serializer = new XmlSerializer(typeof(List<Logs>));
+                XmlSerializer serialiser = new XmlSerializer(typeof(List<Logs>));
                 XmlSerializerNamespaces ns = new XmlSerializerNamespaces();
                 ns.Add("", "");
-                TextWriter Filestream = new StreamWriter(path());
+                TextWriter filestream = new StreamWriter(path());
 
-                serializer.Serialize(Filestream, LogsList, ns);
+                serialiser.Serialize(filestream, LogsList, ns);
 
-                Filestream.Close();
+                filestream.Close();
             }
             else
             {

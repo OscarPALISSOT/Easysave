@@ -9,16 +9,39 @@ using System.Text.Json;
 
 namespace EasySave.Command
 {
-    class CommandsBackup
+    
+    public sealed class SingletonLock
     {
+        private static SingletonLock _instance = null;
+        private static readonly object Padlock = new object();
 
-        private static object LOCK = new object();
+        SingletonLock()
+        {
+        }
+
+        public static SingletonLock Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new SingletonLock();
+                    }
+                    return _instance;
+                }
+            }
+        }
+    }
+    static class CommandsBackup
+    {
 
         /// <summary>
         /// Execute the BackupWork chosen
         /// </summary>
         /// <param name="saveWork">The BackupWork chosen</param>
-        public static void ExecuteBackup(SaveWork saveWork)
+        private static void ExecuteBackup(SaveWork saveWork)
         {
             saveWork.State.Progression = 0;
             saveWork.State.NbFilesLeftToDo = saveWork.State.TotalFileToCopy;
@@ -29,25 +52,21 @@ namespace EasySave.Command
 
             IsTherePriority(saveWork, priorityFiles, filesList);
 
-            void saveFile(string path)
+            void SaveFile(string path)
             {
-
-                Random rnd = new Random();
                 FileInfo fi = new FileInfo(path);
                 saveWork.State.FileSize = fi.Length;
                 bool process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
 
-                while (!saveWork.Play || process)
+                while (process)
                 {
                     process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
-                    Thread.Sleep(rnd.Next(5, 15));
                 }
 
                 bool priorityFilesSaved = IsAllPriorityFilesSaved();
                 while (!priorityFilesSaved)
                 {
                     priorityFilesSaved = IsAllPriorityFilesSaved();
-                    Thread.Sleep(rnd.Next(5, 15));
                 }
 
                 Stopwatch transferTime = new Stopwatch();
@@ -84,17 +103,21 @@ namespace EasySave.Command
                     File.Copy(path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), true);
                 }
                 long length = new FileInfo(Path.Combine(saveWork.Info.FileSource, path)).Length;
+                LogsCommands logCom = new LogsCommands();
                 DateTime time = DateTime.Now;
                 saveWork.State.NbFilesLeftToDo--;
                 saveWork.State.TotalRemainingSize -= saveWork.State.FileSize;
                 saveWork.State.Progression = 100-((double)saveWork.State.TotalRemainingSize * 100 / saveWork.State.TotalDirectorySize);
                 transferTime.Stop();
                 long fileTransferTime = transferTime.ElapsedMilliseconds;
-                LogsCommands.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
-                UpdateSate(saveWork);
+                lock (SingletonLock.Instance)
+                {
+                    logCom.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
+                    UpdateSate(saveWork);
+                }
             }
 
-            void saveListFile(SaveWork saveWork, List<string> files)
+            void SaveListFile(SaveWork saveWork, List<string> files)
             {
                 if (File.Exists(saveWork.Info.FileSource))
                 {
@@ -116,7 +139,7 @@ namespace EasySave.Command
                     //Copy all the files & Replaces any files with the same name
                     foreach (string path in files)
                     {
-                        saveFile(path);
+                        SaveFile(path);
                     }
                 }
                 else
@@ -137,7 +160,7 @@ namespace EasySave.Command
                     {
                         if (!File.Exists(path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget)))
                         {
-                            saveFile(path);
+                            SaveFile(path);
                         }
                     }
                 }
@@ -145,38 +168,35 @@ namespace EasySave.Command
 
             if (saveWork.Priority)
             {
-                saveListFile(saveWork, priorityFiles);
+                SaveListFile(saveWork, priorityFiles);
                 saveWork.Priority = false;
             }
 
-            saveListFile(saveWork, filesList);
+            SaveListFile(saveWork, filesList);
         }
 
         private static void UpdateSate(SaveWork saveWork)
         {
-            lock (LOCK)
+            var MyIni = new IniFile();
+            List<SaveWork> BackupsUpdated = GetAllBackups();
+            SaveWork BackupToDel = GetBackup(saveWork.Name);
+            foreach (var backup in BackupsUpdated)
             {
-                var MyIni = new IniFile();
-                List<SaveWork> BackupsUpdated = GetAllBackups();
-                SaveWork BackupToDel = GetBackup(saveWork.Name);
-                foreach (var backup in BackupsUpdated)
+                if (backup.Name == saveWork.Name)
                 {
-                    if (backup.Name == saveWork.Name)
-                    {
-                        BackupToDel = backup;
-                    }
+                    BackupToDel = backup;
                 }
-                BackupsUpdated.Remove(BackupToDel);
-                BackupsUpdated.Add(saveWork);
-                List<SaveState> BackupsState = new List<SaveState>();
-                foreach (var backup in BackupsUpdated)
-                {
-                    BackupsState.Add(backup.State);
-                }
-                var options = new JsonSerializerOptions { WriteIndented = true };
-                var jsonStringState = JsonSerializer.Serialize(BackupsState, options);
-                File.WriteAllText(MyIni.Read("SaveState"), jsonStringState);
             }
+            BackupsUpdated.Remove(BackupToDel);
+            BackupsUpdated.Add(saveWork);
+            List<SaveState> BackupsState = new List<SaveState>();
+            foreach (var backup in BackupsUpdated)
+            {
+                BackupsState.Add(backup.State);
+            }
+            var options = new JsonSerializerOptions { WriteIndented = true };
+            var jsonStringState = JsonSerializer.Serialize(BackupsState, options);
+            File.WriteAllText(MyIni.Read("SaveState"), jsonStringState);
         }
 
         /// <summary>
@@ -185,7 +205,7 @@ namespace EasySave.Command
         /// <param name="saveWork"></param>
         /// <param name="priorityFiles"></param>
         /// <param name="filesList"></param>
-        public static void IsTherePriority(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
+        private static void IsTherePriority(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
         {
             List<string> priorityExtensions = Commands.GetAllPriorityFile();
 
@@ -452,29 +472,27 @@ namespace EasySave.Command
         /// Encrypt or decrypt a file
         /// </summary>
         /// <param name="sourceFile">The file to encrypt or decrypt</param>
-        /// <param name="OutputFile">The file encrypted or decrypted </param>
-        private static long EncryptDecrypt(string sourceFile, string OutputFile)
+        /// <param name="outputFile">The file encrypted or decrypted </param>
+        private static long EncryptDecrypt(string sourceFile, string outputFile)
         {
             var MyIni = new IniFile();
             string key = MyIni.Read("EncryptionKey");
             var process = new ProcessStartInfo
             {
-                FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../netcoreapp3.1/CryptoSoft/netcoreapp3.1/CryptoSoft.exe")),
-                Arguments = sourceFile + " " + OutputFile + " " + key
+                FileName = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "../../../CryptoSoft/netcoreapp3.1/CryptoSoft.exe")),
+                Arguments = sourceFile + " " + outputFile + " " + key
             };
 
-            using (var proc = Process.Start(process))
-            {
-                proc.WaitForExit();
-                return proc.ExitCode;
-            }
+            using var proc = Process.Start(process);
+            proc.WaitForExit();
+            return proc.ExitCode;
         }
 
         /// <summary>
         /// Decrypt a Savework
         /// </summary>
         /// <param name="saveWork">The savework to decrypt</param>
-        public static void DecryptBackup(SaveWork saveWork)
+        private static void DecryptBackup(SaveWork saveWork)
         {
             List<string> extensionCrypt = Commands.GetAllExtensionToCrypt();
             string[] files = Directory.GetFiles(saveWork.Info.FileTarget, "*.*", SearchOption.AllDirectories);
@@ -507,16 +525,16 @@ namespace EasySave.Command
         /// Start a thread which decrypt a savework 
         /// </summary>
         /// <param name="saveWork">The savework to decrypt</param>
-        public static void DecryptThread(SaveWork saveWork)
+        private static void DecryptThread(SaveWork saveWork)
         {
-            Thread Tdecrypt = new Thread(new ThreadStart(
+            Thread tdecrypt = new Thread(new ThreadStart(
                 () =>
                 {
                     DecryptBackup(saveWork);
                 }
                 )
             );
-            Tdecrypt.Start();
+            tdecrypt.Start();
         }
     }
 }
