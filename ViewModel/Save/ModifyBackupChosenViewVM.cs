@@ -24,6 +24,8 @@ namespace EasySave.ViewModel.Save
 
         // List of backups 
         public SaveWork saveWork { get; set; }
+        
+        public string full { get; set; }
 
         public ModifyBackupChosenViewVM()
         {
@@ -40,6 +42,15 @@ namespace EasySave.ViewModel.Save
             modifyCommand = new RelayCommands(o =>
             {
                 ModifyBackupViewVM menu = new ModifyBackupViewVM();
+                
+                if (full == "Full")
+                {
+                    saveWork.Info.Full = true;
+                }
+                else
+                {
+                    saveWork.Info.Full = false;
+                }
 
                 CommandsBackup.CreateBackup(saveWork.Name, saveWork.Info.FileSource, saveWork.Info.FileTarget, saveWork.Info.Full);
                 nav.CurrentView = menu;

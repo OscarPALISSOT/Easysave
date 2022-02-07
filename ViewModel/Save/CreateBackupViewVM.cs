@@ -17,6 +17,7 @@ namespace EasySave.ViewModel.Save
         public string nameBackup { get; set; }
         public string fileSource { get; set; }
         public string fileTarget { get; set; }
+        public string full { get; set; }
         public bool type { get; set; }
 
         // String for traduction, that will be binded in the view
@@ -48,6 +49,14 @@ namespace EasySave.ViewModel.Save
             // Command for create backup button
             CreateBackup = new RelayCommands(o =>
             {
+                if (full == "Full")
+                {
+                    type = true;
+                }
+                else
+                {
+                    type = false;
+                }
                 // Create backup function
                 CommandsBackup.CreateBackup(nameBackup, fileSource, fileTarget, type);
 
@@ -56,6 +65,5 @@ namespace EasySave.ViewModel.Save
                 nav.CurrentView = menu;
             });
         }
-        ~CreateBackupViewVM() {}
     }
 }

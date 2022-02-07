@@ -61,7 +61,7 @@ namespace EasySave.ViewModel.Save
                 ModifyBackupChosenVM = new ModifyBackupChosenViewVM();
                 foreach (SaveWork save in nameList)
                 {
-                    if (save.selected)
+                    if (save.Selected)
                     {
                         saveWork = save;
                     }

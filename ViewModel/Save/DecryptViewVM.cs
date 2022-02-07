@@ -44,7 +44,7 @@ namespace EasySave.ViewModel.Save
                 List<SaveWork> selectedWork = new List<SaveWork>();
                 foreach (SaveWork save in nameList)
                 {
-                    if (save.selected)
+                    if (save.Selected)
                     {
                         selectedWork.Add(save);
                     }

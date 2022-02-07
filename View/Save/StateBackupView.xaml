@@ -16,7 +16,7 @@
         <Label Content="State backup" HorizontalAlignment="Center" Margin="0,70,0,0" VerticalAlignment="Top" BorderThickness="1" FontSize="25" FontWeight="Heavy" Foreground="White"/>
 
         <Grid Margin="100,200,130,125">
-            <ListView ItemsSource="{Binding dataList}" Margin="-90,-60,-120,35" Name="dataGrid">
+            <ListView ItemsSource="{Binding NameList}" Margin="-90,-60,-120,35" Name="dataGrid">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
@@ -33,23 +33,23 @@
                         <GridViewColumn Header="Progress bar">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding Progression}" Name="progressbar" />
+                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding progression}" Name="progressbar" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="%">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding Progression }"/>
+                                    <TextBox Text="{Binding State.progression }"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="Source" 
-                                        DisplayMemberBinding="{Binding FileSource}"/>
+                                        DisplayMemberBinding="{Binding Info.FileSource}"/>
                         <GridViewColumn Header="Target" 
-                                        DisplayMemberBinding="{Binding FileTarget}"/>
+                                        DisplayMemberBinding="{Binding Info.FileTarget}"/>
                         <GridViewColumn Header="Type" 
-                                        DisplayMemberBinding="{Binding Full}"/>
+                                        DisplayMemberBinding="{Binding Info.Full}"/>
 
                     </GridView>
                 </ListView.View>

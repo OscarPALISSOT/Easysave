@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Oscar\RiderProjects\Easysave\obj\Debug\netcoreapp3.1\
+D:\Easysave\obj\Debug\netcoreapp3.1\
 EasySave
 none
 false
 TRACE;DEBUG;NETCOREAPP;NETCOREAPP3_1;
-C:\Users\Oscar\RiderProjects\Easysave\App.xaml
+D:\Easysave\App.xaml
 231076303115
 
 561545405339
-1981318384215
+1981105295807
 MainWindow.xaml;View\HomeView.xaml;View\Save\CreateBackupView.xaml;View\Save\DecryptView.xaml;View\Save\DeleteBackupView.xaml;View\Save\ExecuteBackupView.xaml;View\Save\MenuBackupView.xaml;View\Save\ModifyBackupChosenView.xaml;View\Save\ModifyBackupView.xaml;View\Save\StateBackupView.xaml;View\Settings\BusinessSoftware.xaml;View\Settings\EncryptionKeyView.xaml;View\Settings\EncryptionView.xaml;View\Settings\LanguageView.xaml;View\Settings\LogExtentionView.xaml;View\Settings\LogFilePath.xaml;View\Settings\MenuEncryptionView.xaml;View\Settings\MenuPathView.xaml;View\Settings\PriorityFilesView.xaml;View\Settings\SaveFilePath.xaml;View\Settings\SettingsView.xaml;View\Settings\StateFilePath.xaml;View\Themes\MenuButtonTheme.xaml;
 
-True
+False
 

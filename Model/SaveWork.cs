@@ -11,7 +11,8 @@ namespace EasySave.Model
         public string Name { get; set; }
         public SaveInfo Info { get; set; }
         public SaveState State { get; set; }
-        public bool selected { get; set; }
+        
+        public bool Selected { get; set; }
         public bool Play { get; set; }
         public bool Priority { get; set; }
 

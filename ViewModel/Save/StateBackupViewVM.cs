@@ -14,23 +14,17 @@ namespace EasySave.ViewModel.Save
             public RelayCommands ReturnCommand { get; set; }
             public RelayCommands PauseCommand { get; set; }
 
-            public List<SaveWork> nameList { get; set; }
-            public List<DataList> dataList { get; set; }
+            public List<SaveWork> NameList { get; set; }
             public string ReturnButton { get; set; }
 
             public StateBackupViewVM()
             {
                 ReturnButton = Resource1.ReturnButton;
 
-                nameList = CommandsBackup.GetAllBackups();
-                dataList = new List<DataList>();
+                
+                NameList = CommandsBackup.GetAllBackups();
                 
                 List<SaveWork> backups = CommandsBackup.GetAllBackups();
-                foreach (var backup in backups)
-                {
-                    DataList data = new DataList(backup);
-                    dataList.Add(data);
-                }
                 ReturnCommand = new RelayCommands(o =>
                 {
                     HomeVM home = new HomeVM();
@@ -40,9 +34,9 @@ namespace EasySave.ViewModel.Save
                 PauseCommand = new RelayCommands(o =>
                 {
                     List<SaveWork> selectedWorks = new List<SaveWork>();
-                    foreach (SaveWork save in nameList)
+                    foreach (SaveWork save in NameList)
                     {
-                        if (save.selected)
+                        if (save.Selected)
                         {
                             selectedWorks.Add(save);
                         }
@@ -59,30 +53,6 @@ namespace EasySave.ViewModel.Save
                         }
                     }
                 });
-            }
-
-            public class DataList
-            {
-                private delegate void UpdateProgress ( int Progress ); 
-
-                public string Name { get; set; }
-                public bool Selected { get; set; }
-                public int State { get; set; }
-                public string FileTarget { get; set; }
-                public string FileSource { get; set; }
-                public bool Full { get; set; }
-                private UpdateProgress Progression; 
-
-                public DataList(SaveWork saveWork)
-                {
-                    Name = saveWork.Name;
-                    Selected = saveWork.selected;
-                    State = saveWork.State.State;
-                    Progression = Dispatcher.Invoke(saveWork.State.Progression);
-                    FileSource = saveWork.Info.FileSource;
-                    FileTarget = saveWork.Info.FileTarget;
-                    Full = saveWork.Info.Full;
-                }
             }
     }
 }

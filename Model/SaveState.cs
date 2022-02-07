@@ -9,13 +9,16 @@ namespace EasySave.Model
     {
         public string Name { get; set; }
         public int State { get; set; }
+        
         public long TotalFileToCopy { get; set; }
         public long TotalDirectorySize { get; set; }
         public long TotalRemainingSize { get; set; }
         public long FileSize { get; set; }
         public long NbFilesLeftToDo { get; set; }
         
-        public int Progression
+        public int Progression { get; set; }
+        
+        public int progression
         {
             get
             {
@@ -26,7 +29,7 @@ namespace EasySave.Model
                 if(Progression != value)
                 {
                     Progression = value;
-                    OnPropertyChanged("Progression");
+                    OnPropertyChanged("progression");
                 }
             }
            
