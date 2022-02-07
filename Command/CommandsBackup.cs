@@ -72,8 +72,7 @@ namespace EasySave.Command
                 Stopwatch transferTime = new Stopwatch();
 
                 transferTime.Start();
-                List<string> extensionList = new List<string>();
-                extensionList = Commands.GetAllExtensionToCrypt();
+                List<string> extensionList = Commands.GetAllExtensionToCrypt();
                 long fileEncryptionTime = 0;
                 bool crypt = false;
                 foreach (var extension in extensionList)
@@ -107,7 +106,7 @@ namespace EasySave.Command
                 DateTime time = DateTime.Now;
                 saveWork.State.NbFilesLeftToDo--;
                 saveWork.State.TotalRemainingSize -= saveWork.State.FileSize;
-                saveWork.State.Progression = 100-((double)saveWork.State.TotalRemainingSize * 100 / saveWork.State.TotalDirectorySize);
+                saveWork.State.Progression = 100-((int)saveWork.State.TotalRemainingSize * 100 / (int)saveWork.State.TotalDirectorySize);
                 transferTime.Stop();
                 long fileTransferTime = transferTime.ElapsedMilliseconds;
                 lock (SingletonLock.Instance)
@@ -245,7 +244,7 @@ namespace EasySave.Command
         /// <summary>
         /// Tell if all priority files are saved
         /// </summary>
-        /// <returns>true if finiched or false if not </returns>
+        /// <returns>true if finished or false if not </returns>
         public static bool IsAllPriorityFilesSaved()
         {
             List<SaveWork> Backups = GetAllBackups();

@@ -33,14 +33,14 @@
                         <GridViewColumn Header="Progress bar">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding CurrentProgression}" Name="progressbar" />
+                                    <ProgressBar Minimum="0" Maximum="100" Width="70" Height="20" Value="{Binding Progression}" Name="progressbar" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
                         <GridViewColumn Header="%">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <TextBox Text="{Binding CurrentProgression }"/>
+                                    <TextBox Text="{Binding Progression }"/>
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

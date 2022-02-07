@@ -3,6 +3,7 @@ using EasySave.Command;
 using EasySave.Model;
 using EasySave.View.Ressources;
 using System.Collections.Generic;
+using System.Windows.Threading;
 
 namespace EasySave.ViewModel.Save
 {
@@ -60,33 +61,24 @@ namespace EasySave.ViewModel.Save
                 });
             }
 
-            public class DataList: PropertyChangeEvent
+            public class DataList
             {
+                private delegate void UpdateProgress ( int Progress ); 
+
                 public string Name { get; set; }
                 public bool Selected { get; set; }
                 public int State { get; set; }
                 public string FileTarget { get; set; }
                 public string FileSource { get; set; }
                 public bool Full { get; set; }
-                
-                private object _progression;
-
-                public object CurrentProgression
-                {
-                    get { return _progression; }
-                    set
-                    {
-                        _progression = value;
-                        OnPropertyChanged();
-                    }
-                }
+                private UpdateProgress Progression; 
 
                 public DataList(SaveWork saveWork)
                 {
                     Name = saveWork.Name;
                     Selected = saveWork.selected;
                     State = saveWork.State.State;
-                    CurrentProgression = saveWork.State.Progression;
+                    Progression = Dispatcher.Invoke(saveWork.State.Progression);
                     FileSource = saveWork.Info.FileSource;
                     FileTarget = saveWork.Info.FileTarget;
                     Full = saveWork.Info.Full;

@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 
 namespace EasySave.ViewModel
 {
-    class PropertyChangeEvent : INotifyPropertyChanged
+    public class PropertyChangeEvent : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 
