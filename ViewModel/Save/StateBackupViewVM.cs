@@ -41,17 +41,6 @@ namespace EasySave.ViewModel.Save
                             selectedWorks.Add(save);
                         }
                     }
-                    foreach (var selectedWork in selectedWorks)
-                    {
-                        if (selectedWork.Play)
-                        {
-                            selectedWork.Play = false;
-                        }
-                        else
-                        {
-                            selectedWork.Play = true;
-                        }
-                    }
                 });
             }
     }

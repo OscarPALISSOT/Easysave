@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Resources;
+using System.Windows;
+using System.Windows.Controls;
 using EasySave.Command;
 using EasySave.Model;
 using EasySave.View.Ressources;
+using SelectionChangedEventArgs = DevExpress.Data.SelectionChangedEventArgs;
 
 namespace EasySave.ViewModel.Save
 {

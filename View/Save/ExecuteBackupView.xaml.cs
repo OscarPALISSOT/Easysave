@@ -2,6 +2,7 @@
 using EasySave.Model;
 using System.Collections.Generic;
 using System.Threading;
+using System.Windows;
 using System.Windows.Controls;
 
 namespace EasySave.View.Save
@@ -16,23 +17,22 @@ namespace EasySave.View.Save
         public ExecuteBackupView()
         {
             InitializeComponent();
-
-            Thread myThread;
-
-            myThread = new Thread(new ThreadStart(ThreadLoop));
-
-            myThread.Start();
         }
-
-        public static void ThreadLoop()
+        
+        // select the backup
+        void SelectedBackup(object sender, SelectionChangedEventArgs args)
         {
-            // Tant que le thread n'est pas tué, on travaille
-            while (Thread.CurrentThread.IsAlive)
-            {
-                List<SaveState> BackupsState = new List<SaveState>();
-
-                BackupsState = CommandsBackup.GetBackUpsState();
+            var item = (ListView)sender;
+            var save = (SaveWork) item.SelectedItem;
+            if (save.Selected)
+            { 
+                save.Selected = false;
             }
+            else
+            {
+                save.Selected = true;
+            }
+
         }
     }
 }

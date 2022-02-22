@@ -40,16 +40,9 @@
             Command="{Binding ExecuteBackup}"/>
 
         <Grid Margin="100,200,130,125">
-            <ListView ItemsSource="{Binding nameList}" Margin="-85,0,-105,-25">
+            <ListView ItemsSource="{Binding nameList}" Margin="-85,0,-105,-25" SelectionMode="Multiple" SelectionChanged="SelectedBackup">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn>
-                            <GridViewColumn.CellTemplate>
-                                <DataTemplate>
-                                    <CheckBox IsChecked="{Binding Selected}"/>
-                                </DataTemplate>
-                            </GridViewColumn.CellTemplate>
-                        </GridViewColumn>
                         <GridViewColumn Header="Backup" 
                                         DisplayMemberBinding="{Binding Name}"/>
                         <GridViewColumn Header="Source" 

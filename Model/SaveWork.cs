@@ -13,7 +13,6 @@ namespace EasySave.Model
         public SaveState State { get; set; }
         
         public bool Selected { get; set; }
-        public bool Play { get; set; }
         public bool Priority { get; set; }
 
         public SaveWork(string name, string fileSource, string fileTarget, bool type)
@@ -29,7 +28,7 @@ namespace EasySave.Model
             Info.Name = name;
             State.TotalFileToCopy = Commands.GetDirectoryTotalNbFile(Info.FileSource);
             State.TotalDirectorySize = Commands.GetDirectoryTotalSize(Info.FileSource);
-            Play = true;
+            Selected = false;
             Priority = false;
         }
     }
