@@ -43,7 +43,7 @@ namespace EasySave.ViewModel.Save
             {
                 ModifyBackupViewVM menu = new ModifyBackupViewVM();
                 
-                if (full == "Full")
+                if (full == "System.Windows.Controls.ComboBoxItem : Full")
                 {
                     saveWork.Info.Full = true;
                 }

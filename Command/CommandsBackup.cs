@@ -44,6 +44,8 @@ namespace EasySave.Command
         private static void ExecuteBackup(SaveWork saveWork)
         {
             saveWork.State.Progression = 0;
+            saveWork.State.TotalFileToCopy = Commands.GetDirectoryTotalNbFile(saveWork.Info.FileSource);
+            saveWork.State.TotalDirectorySize = Commands.GetDirectoryTotalSize(saveWork.Info.FileSource);
             saveWork.State.NbFilesLeftToDo = saveWork.State.TotalFileToCopy;
             saveWork.State.TotalRemainingSize = saveWork.State.TotalDirectorySize;
             saveWork.Selected = false;

@@ -1,4 +1,6 @@
 ﻿using System.Resources;
+using System.Security.AccessControl;
+using System.Windows.Controls;
 using EasySave.Command;
 using EasySave.View.Ressources;
 
@@ -49,7 +51,7 @@ namespace EasySave.ViewModel.Save
             // Command for create backup button
             CreateBackup = new RelayCommands(o =>
             {
-                if (full == "Full")
+                if ( full == "System.Windows.Controls.ComboBoxItem : Full")
                 {
                     type = true;
                 }

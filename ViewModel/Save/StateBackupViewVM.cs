@@ -14,7 +14,7 @@ namespace EasySave.ViewModel.Save
             public RelayCommands ReturnCommand { get; set; }
             public RelayCommands PauseCommand { get; set; }
 
-            public List<SaveWork> NameList { get; set; }
+            public List<SaveWork> SaveList { get; set; }
             public string ReturnButton { get; set; }
 
             public StateBackupViewVM()
@@ -22,7 +22,7 @@ namespace EasySave.ViewModel.Save
                 ReturnButton = Resource1.ReturnButton;
 
                 
-                NameList = CommandsBackup.GetAllBackups();
+                SaveList = CommandsBackup.GetAllBackups();
                 
                 List<SaveWork> backups = CommandsBackup.GetAllBackups();
                 ReturnCommand = new RelayCommands(o =>
@@ -34,7 +34,7 @@ namespace EasySave.ViewModel.Save
                 PauseCommand = new RelayCommands(o =>
                 {
                     List<SaveWork> selectedWorks = new List<SaveWork>();
-                    foreach (SaveWork save in NameList)
+                    foreach (SaveWork save in SaveList)
                     {
                         if (save.Selected)
                         {
