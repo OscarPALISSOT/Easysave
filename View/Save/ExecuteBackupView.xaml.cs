@@ -1,9 +1,11 @@
 ﻿using EasySave.Command;
 using EasySave.Model;
 using System.Collections.Generic;
-using System.Threading;
-using System.Windows;
 using System.Windows.Controls;
+using EasySave.View.Ressources;
+using EasySave.ViewModel;
+using EasySave.ViewModel.Save;
+using SelectionChangedEventArgs = DevExpress.Data.SelectionChangedEventArgs;
 
 namespace EasySave.View.Save
 {
@@ -12,15 +14,14 @@ namespace EasySave.View.Save
     /// </summary>
     public partial class ExecuteBackupView : UserControl
     {
-        //public List<SaveState> BackupsState { get; set; }
-
+        
         public ExecuteBackupView()
         {
             InitializeComponent();
         }
         
         // select the backup
-        void SelectedBackup(object sender, SelectionChangedEventArgs args)
+        private void SelectedBackup(object sender, System.Windows.Controls.SelectionChangedEventArgs selectionChangedEventArgs)
         {
             var item = (ListView)sender;
             var save = (SaveWork) item.SelectedItem;

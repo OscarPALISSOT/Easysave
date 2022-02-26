@@ -16,7 +16,7 @@ namespace EasySave.ViewModel.Save
         public RelayCommands DeleteBackup { get; set; }
 
         // List of backups 
-        public List<SaveWork> nameList { get; set; }
+        public List<SaveWork> SaveList { get; set; }
 
         // String for traduction, that will be binded in the view
         public string title { get; set; }
@@ -26,7 +26,7 @@ namespace EasySave.ViewModel.Save
 
         public DeleteBackupViewVM()
         {
-            nameList = new List<SaveWork>();
+            
 
             // Assignment of values for traduction
             title = Resource1.DBV1;
@@ -42,23 +42,22 @@ namespace EasySave.ViewModel.Save
             });
 
             // Get all backups
-            nameList = CommandsBackup.GetAllBackups();
+            SaveList = CommandsBackup.GetAllBackups();
 
             // Command for delete button
             DeleteBackup = new RelayCommands(o =>
             {
                 List<SaveWork> selectedWork = new List<SaveWork>();
-                foreach (SaveWork save in nameList)
+                foreach (var save in SaveList)
                 {
                     if (save.Selected)
                     {
                         selectedWork.Add(save);
                     }
                 }
-
-                // Delete backup function
+                
                 CommandsBackup.DeleteBackup(selectedWork);
-
+                
                 // Change view when done
                 MenuBackupViewVM menu = new MenuBackupViewVM();
                 nav.CurrentView = menu;

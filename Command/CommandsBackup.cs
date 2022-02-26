@@ -46,6 +46,7 @@ namespace EasySave.Command
             saveWork.State.Progression = 0;
             saveWork.State.NbFilesLeftToDo = saveWork.State.TotalFileToCopy;
             saveWork.State.TotalRemainingSize = saveWork.State.TotalDirectorySize;
+            saveWork.Selected = false;
 
             List<string> priorityFiles = new List<string>();
             List<string> filesList = new List<string>();
@@ -266,8 +267,6 @@ namespace EasySave.Command
         {
             foreach (var backup in Backups)
             {
-                Random rnd = new Random();
-                Thread.Sleep(rnd.Next(5, 15));
                 ExecuteThread(backup);
             }
         }
