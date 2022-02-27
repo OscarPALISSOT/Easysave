@@ -16,8 +16,8 @@
     <Grid>
         <Label Content="{Binding title}" HorizontalAlignment="Center" VerticalAlignment="Top" Height="80" Width="360" FontSize="28" FontWeight="Bold" Foreground="White" Margin="0,10,0,0"/>
         <Image HorizontalAlignment="Center" Height="135" Margin="0,95,0,0" VerticalAlignment="Top" Width="136" Source="/View/Icone/logo.png"/>
-        <Label Content="Version 3.0" HorizontalAlignment="Left" Margin="579,405,0,0" VerticalAlignment="Top" Width="70" Foreground="White"/>
-        <Label Content="Anthony EBERHARD, Oscar PALISSOT, Valentin RAGGIOLI" HorizontalAlignment="Left" Margin="334,424,0,0" VerticalAlignment="Top" Width="315" Foreground="White"/>
+        <Label Content="Version 4.0" HorizontalAlignment="Left" Margin="579,405,0,0" VerticalAlignment="Top" Width="70" Foreground="White"/>
+        <Label Content="Oscar PALISSOT" HorizontalAlignment="right" Margin="550,425,0,0" VerticalAlignment="Top" Width="100" Foreground="White"/>
         <Button 
             FontWeight="Bold"
             Content="{Binding button1}"

@@ -1,8 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Resources;
+using System.Windows;
+using System.Windows.Controls;
 using EasySave.Command;
 using EasySave.Model;
 using EasySave.View.Ressources;
+using SelectionChangedEventArgs = DevExpress.Data.SelectionChangedEventArgs;
 
 namespace EasySave.ViewModel.Save
 {
@@ -10,9 +14,6 @@ namespace EasySave.ViewModel.Save
     {
         // Used for navigation between views
         private readonly MainWindowsVM nav = MainWindowsVM.GetThis();
-
-        // Used for traduction 
-        public ResourceManager manager = new ResourceManager(typeof(Resource1));
 
         // Declaration of commands that will be binded in the view (in buttons)
         public RelayCommands Return { get; set; }
@@ -53,7 +54,7 @@ namespace EasySave.ViewModel.Save
                 List<SaveWork> selectedWork = new List<SaveWork>();
                 foreach (SaveWork save in nameList)
                 {
-                    if (save.selected)
+                    if (save.Selected)
                     {
                         selectedWork.Add(save);
                     }

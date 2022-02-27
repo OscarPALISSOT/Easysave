@@ -37,7 +37,7 @@
             VerticalAlignment="Top" 
             Height="40" 
             Width="160"
-            Command="{Binding ChangeLogExtention}"/>
+            Command="{Binding ChangePathLog}"/>
         <Button 
             FontWeight="Bold"
             Style="{StaticResource ThemeButtonReturn}"

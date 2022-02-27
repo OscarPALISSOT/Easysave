@@ -40,13 +40,13 @@
             Command="{Binding ExecuteBackup}"/>
 
         <Grid Margin="100,200,130,125">
-            <ListView ItemsSource="{Binding nameList}" Margin="-85,0,-105,-25">
+            <ListView ItemsSource="{Binding nameList}" Margin="-85,0,-105,-25" >
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding selected}"/>
+                                    <CheckBox IsChecked="{Binding Selected}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>

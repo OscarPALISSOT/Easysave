@@ -14,7 +14,7 @@ namespace EasySave.Command
 {
     static class Commands
     {
-
+        
         /// <summary>
         /// Modify the location of the InfoFile
         /// </summary>

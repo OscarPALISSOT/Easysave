@@ -10,9 +10,6 @@ namespace EasySave.ViewModel.Save
         // Used for navigation between views
         private readonly MainWindowsVM nav = MainWindowsVM.GetThis();
 
-        // Used for traduction 
-        public ResourceManager manager = new ResourceManager(typeof(Resource1));
-
         // Declaration of commands that will be binded in the view (in buttons)
         public RelayCommands modifyCommand { get; set; }
         public RelayCommands returnButton { get; set; }
@@ -27,6 +24,8 @@ namespace EasySave.ViewModel.Save
 
         // List of backups 
         public SaveWork saveWork { get; set; }
+        
+        public string full { get; set; }
 
         public ModifyBackupChosenViewVM()
         {
@@ -43,6 +42,15 @@ namespace EasySave.ViewModel.Save
             modifyCommand = new RelayCommands(o =>
             {
                 ModifyBackupViewVM menu = new ModifyBackupViewVM();
+                
+                if (full == "System.Windows.Controls.ComboBoxItem : Full")
+                {
+                    saveWork.Info.Full = true;
+                }
+                else
+                {
+                    saveWork.Info.Full = false;
+                }
 
                 CommandsBackup.CreateBackup(saveWork.Name, saveWork.Info.FileSource, saveWork.Info.FileTarget, saveWork.Info.Full);
                 nav.CurrentView = menu;

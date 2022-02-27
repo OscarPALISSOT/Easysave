@@ -3,14 +3,44 @@ using EasySave.Command;
 using EasySave.Model;
 using EasySave.View.Ressources;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Resources;
-using System.Threading;
+using System.Windows.Threading;
 
 namespace EasySave.ViewModel.Save
 {
     class StateBackupViewVM
     {
-        
+            private readonly MainWindowsVM nav = MainWindowsVM.GetThis();
+
+            public RelayCommands ReturnCommand { get; set; }
+            public RelayCommands PauseCommand { get; set; }
+
+            public List<SaveWork> SaveList { get; set; }
+            public string ReturnButton { get; set; }
+
+            public StateBackupViewVM()
+            {
+                ReturnButton = Resource1.ReturnButton;
+
+                
+                SaveList = CommandsBackup.GetAllBackups();
+                
+                ReturnCommand = new RelayCommands(o =>
+                {
+                    HomeVM home = new HomeVM();
+                    nav.CurrentView = home;
+                });
+
+                PauseCommand = new RelayCommands(o =>
+                {
+                    if (CommandsBackup.ResetEvent.WaitOne(0))
+                    {
+                        CommandsBackup.ResetEvent.Reset();
+                    }
+                    else
+                    {
+                        CommandsBackup.ResetEvent.Set();
+                    }
+                });
+            }
     }
 }

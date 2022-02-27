@@ -71,14 +71,15 @@
 
             <Label Content="{Binding title4}" HorizontalAlignment="Left" Margin="63,258,0,0" VerticalAlignment="Top" FontWeight="Bold" FontSize="20" Foreground="White" Width="402"/>
 
-            <TextBox 
+        <ComboBox
             HorizontalAlignment="Left" 
-            Margin="380,268,0,0" 
-            TextWrapping="Wrap" 
+            Margin="380,268,0,0"
+            Width="254"
             VerticalAlignment="Top" 
-            Width="254" 
-            Height="17"
-            Text="{Binding saveWork.Info.Full}"/>
+            SelectedValue="{Binding full}">
+            <ComboBoxItem IsSelected="True">Full</ComboBoxItem>
+            <ComboBoxItem>Differential </ComboBoxItem>
+        </ComboBox>
         </Grid>
 
 </UserControl>

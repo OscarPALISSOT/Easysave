@@ -42,13 +42,13 @@
         <Label Content="{Binding title}" HorizontalAlignment="Center" Margin="0,68,0,0" VerticalAlignment="Top" FontSize="25" FontWeight="Heavy" Foreground="White"/>
         <Label Content="{Binding title2}" HorizontalAlignment="Center" Margin="0,127,0,0" VerticalAlignment="Top" FontSize="15" FontWeight="Bold" Width="224" Foreground="White"/>
         <Grid Margin="100,200,130,125">
-            <ListView ItemsSource="{Binding nameList}" Margin="-60,0,-80,0">
+            <ListView ItemsSource="{Binding SaveList}" Margin="-60,0,-80,0">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn>
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>
-                                    <CheckBox IsChecked="{Binding selected}"/>
+                                    <CheckBox IsChecked="{Binding Selected}" />
                                 </DataTemplate>
                             </GridViewColumn.CellTemplate>
                         </GridViewColumn>
