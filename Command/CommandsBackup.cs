@@ -179,7 +179,13 @@ namespace EasySave.Command
                     //Copy all the files & Replaces any files with the same name
                     foreach (string path in files)
                     {
+                        FileInfo file = new FileInfo(path);
+                        FileInfo filetarget = new FileInfo(path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget));
                         if (!File.Exists(path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget)))
+                        {
+                            SaveFile(path);
+                        }
+                        else if (file.Length != filetarget.Length)
                         {
                             SaveFile(path);
                         }
