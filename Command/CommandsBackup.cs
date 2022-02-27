@@ -61,6 +61,7 @@ namespace EasySave.Command
     }
     static class CommandsBackup
     {
+        public static ManualResetEvent ResetEvent = new ManualResetEvent(true);
         /// <summary>
         /// Execute the BackupWork chosen
         /// </summary>
@@ -81,11 +82,10 @@ namespace EasySave.Command
 
             void SaveFile(string path)
             {
+                ResetEvent.WaitOne();
                 FileInfo fi = new FileInfo(path);
                 saveWork.State.FileSize = fi.Length;
                 bool process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
-
-                bool pause = saveWork.ResetEvent.WaitOne(0);
 
                 while (process)
                 {

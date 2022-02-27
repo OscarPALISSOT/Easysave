@@ -24,7 +24,6 @@ namespace EasySave.ViewModel.Save
                 
                 SaveList = CommandsBackup.GetAllBackups();
                 
-                List<SaveWork> backups = CommandsBackup.GetAllBackups();
                 ReturnCommand = new RelayCommands(o =>
                 {
                     HomeVM home = new HomeVM();
@@ -33,25 +32,13 @@ namespace EasySave.ViewModel.Save
 
                 PauseCommand = new RelayCommands(o =>
                 {
-                    List<SaveWork> selectedWorks = new List<SaveWork>();
-                    foreach (SaveWork save in SaveList)
+                    if (CommandsBackup.ResetEvent.WaitOne(0))
                     {
-                        if (save.Selected)
-                        {
-                            selectedWorks.Add(save);
-                        }
+                        CommandsBackup.ResetEvent.Reset();
                     }
-
-                    foreach (var selecetedSave in selectedWorks)
+                    else
                     {
-                        if (selecetedSave.ResetEvent.WaitOne(0))
-                        {
-                            selecetedSave.ResetEvent.Reset();
-                        }
-                        else
-                        {
-                            selecetedSave.ResetEvent.Set();
-                        }
+                        CommandsBackup.ResetEvent.Set();
                     }
                 });
             }
