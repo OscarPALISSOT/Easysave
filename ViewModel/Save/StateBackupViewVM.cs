@@ -41,6 +41,18 @@ namespace EasySave.ViewModel.Save
                             selectedWorks.Add(save);
                         }
                     }
+
+                    foreach (var selecetedSave in selectedWorks)
+                    {
+                        if (selecetedSave.ResetEvent.WaitOne(0))
+                        {
+                            selecetedSave.ResetEvent.Reset();
+                        }
+                        else
+                        {
+                            selecetedSave.ResetEvent.Set();
+                        }
+                    }
                 });
             }
     }

@@ -34,9 +34,33 @@ namespace EasySave.Command
             }
         }
     }
+    
+    public sealed class SingletonLockPrio
+    {
+        private static SingletonLockPrio _instance = null;
+        private static readonly object Padlock = new object();
+
+        SingletonLockPrio()
+        {
+        }
+
+        public static SingletonLockPrio Instance
+        {
+            get
+            {
+                lock (Padlock)
+                {
+                    if (_instance == null)
+                    {
+                        _instance = new SingletonLockPrio();
+                    }
+                    return _instance;
+                }
+            }
+        }
+    }
     static class CommandsBackup
     {
-
         /// <summary>
         /// Execute the BackupWork chosen
         /// </summary>
@@ -61,15 +85,11 @@ namespace EasySave.Command
                 saveWork.State.FileSize = fi.Length;
                 bool process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
 
+                bool pause = saveWork.ResetEvent.WaitOne(0);
+
                 while (process)
                 {
                     process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
-                }
-
-                bool priorityFilesSaved = IsAllPriorityFilesSaved();
-                while (!priorityFilesSaved)
-                {
-                    priorityFilesSaved = IsAllPriorityFilesSaved();
                 }
 
                 Stopwatch transferTime = new Stopwatch();
@@ -155,7 +175,6 @@ namespace EasySave.Command
                         {
                             Directory.CreateDirectory(dirPath.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget));
                         }
-
                     }
                     //Copy all the files & Replaces any files with the same name
                     foreach (string path in files)
@@ -168,13 +187,17 @@ namespace EasySave.Command
                 }
             }
 
-            if (saveWork.Priority)
+            if (priorityFiles.Count > saveWork.State.TotalFileToCopy - saveWork.State.NbFilesLeftToDo)
             {
-                SaveListFile(saveWork, priorityFiles);
-                saveWork.Priority = false;
+                lock (SingletonLockPrio.Instance)
+                {
+                    SaveListFile(saveWork, priorityFiles);
+                    saveWork.Priority = false;
+                }
             }
-
             SaveListFile(saveWork, filesList);
+
+            
         }
 
         private static void UpdateSate(SaveWork saveWork)
@@ -219,8 +242,7 @@ namespace EasySave.Command
             {
                 filesList.Add(file);
             }
-
-
+            
             foreach (var file in filesList)
             {
                 foreach (var priorityExtension in priorityExtensions)
@@ -242,23 +264,6 @@ namespace EasySave.Command
             {
                 saveWork.Priority = true;
             }
-        }
-
-        /// <summary>
-        /// Tell if all priority files are saved
-        /// </summary>
-        /// <returns>true if finished or false if not </returns>
-        public static bool IsAllPriorityFilesSaved()
-        {
-            List<SaveWork> Backups = GetAllBackups();
-            foreach (var backup in Backups)
-            {
-                if (backup.Priority)
-                {
-                    return false;
-                }
-            }
-            return true;
         }
 
         /// <summary>

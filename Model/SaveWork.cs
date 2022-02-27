@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
+using System.Threading;
 using EasySave.Command;
 
 namespace EasySave.Model
@@ -12,6 +13,8 @@ namespace EasySave.Model
         public SaveInfo Info { get; set; }
         public SaveState State { get; set; }
         public bool Selected { get; set; }
+        
+        public ManualResetEvent ResetEvent = new ManualResetEvent(true);
         public bool Priority { get; set; }
 
         public SaveWork(string name, string fileSource, string fileTarget, bool type)
