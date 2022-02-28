@@ -14,6 +14,8 @@ namespace EasySave.Model
         public SaveState State { get; set; }
         public bool Selected { get; set; }
         public bool Priority { get; set; }
+        
+        public ManualResetEvent PrioEvent = new ManualResetEvent(true);
 
         public SaveWork(string name, string fileSource, string fileTarget, bool type)
         {

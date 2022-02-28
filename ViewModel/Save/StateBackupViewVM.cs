@@ -32,13 +32,13 @@ namespace EasySave.ViewModel.Save
 
                 PauseCommand = new RelayCommands(o =>
                 {
-                    if (CommandsBackup.ResetEvent.WaitOne(0))
+                    if (CommandsBackup.pause.WaitOne(0))
                     {
-                        CommandsBackup.ResetEvent.Reset();
+                        CommandsBackup.pause.Reset();
                     }
                     else
                     {
-                        CommandsBackup.ResetEvent.Set();
+                        CommandsBackup.pause.Set();
                     }
                 });
             }
