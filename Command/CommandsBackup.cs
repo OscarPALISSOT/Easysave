@@ -35,33 +35,10 @@ namespace EasySave.Command
         }
     }
     
-    public sealed class SingletonLockPrio
-    {
-        private static SingletonLockPrio _instance = null;
-        private static readonly object Padlock = new object();
-
-        SingletonLockPrio()
-        {
-        }
-
-        public static SingletonLockPrio Instance
-        {
-            get
-            {
-                lock (Padlock)
-                {
-                    if (_instance == null)
-                    {
-                        _instance = new SingletonLockPrio();
-                    }
-                    return _instance;
-                }
-            }
-        }
-    }
     static class CommandsBackup
     {
-        public static ManualResetEvent ResetEvent = new ManualResetEvent(true);
+        public static ManualResetEvent pause = new ManualResetEvent(true);
+        
         /// <summary>
         /// Execute the BackupWork chosen
         /// </summary>
@@ -78,11 +55,11 @@ namespace EasySave.Command
             List<string> priorityFiles = new List<string>();
             List<string> filesList = new List<string>();
 
-            IsTherePriority(saveWork, priorityFiles, filesList);
+            GetprioList(saveWork, priorityFiles, filesList);
 
             void SaveFile(string path)
             {
-                ResetEvent.WaitOne();
+                pause.WaitOne();
                 FileInfo fi = new FileInfo(path);
                 saveWork.State.FileSize = fi.Length;
                 bool process = Commands.IsProcessRunning(Commands.GetAllBusinessSoftware());
@@ -135,7 +112,7 @@ namespace EasySave.Command
                 lock (SingletonLock.Instance)
                 {
                     logCom.AddLogs(saveWork.Info.Name, path, path.Replace(saveWork.Info.FileSource, saveWork.Info.FileTarget), saveWork.State.State, length, fileTransferTime, saveWork.State.NbFilesLeftToDo, fileEncryptionTime, saveWork.State.Progression);
-                    UpdateSate(saveWork);
+                    UpdateState(saveWork);
                 }
             }
 
@@ -192,13 +169,26 @@ namespace EasySave.Command
                     }
                 }
             }
-
+            
             if (priorityFiles.Count > saveWork.State.TotalFileToCopy - saveWork.State.NbFilesLeftToDo)
             {
-                lock (SingletonLockPrio.Instance)
+                SaveListFile(saveWork, priorityFiles);
+                saveWork.Priority = false;
+                lock (SingletonLock.Instance)
                 {
-                    SaveListFile(saveWork, priorityFiles);
-                    saveWork.Priority = false;
+                    UpdateState(saveWork);
+                }
+            }
+
+            if (!IsAllPriorityFilesSaved())
+            {
+                saveWork.PrioEvent.WaitOne();
+            }
+            else
+            {
+                foreach (var backup in GetAllBackups())
+                {
+                    backup.PrioEvent.Set();
                 }
             }
             SaveListFile(saveWork, filesList);
@@ -206,7 +196,7 @@ namespace EasySave.Command
             
         }
 
-        private static void UpdateSate(SaveWork saveWork)
+        private static void UpdateState(SaveWork saveWork)
         {
             var MyIni = new IniFile();
             List<SaveWork> BackupsUpdated = GetAllBackups();
@@ -231,12 +221,12 @@ namespace EasySave.Command
         }
 
         /// <summary>
-        /// Tell if there is a priority file in files to save
+        /// Get list of prio files
         /// </summary>
         /// <param name="saveWork"></param>
         /// <param name="priorityFiles"></param>
         /// <param name="filesList"></param>
-        private static void IsTherePriority(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
+        private static void GetprioList(SaveWork saveWork, List<string> priorityFiles, List<string> filesList)
         {
             List<string> priorityExtensions = Commands.GetAllPriorityFile();
 
@@ -269,7 +259,28 @@ namespace EasySave.Command
             if (priorityFiles.Count > 0)
             {
                 saveWork.Priority = true;
+                lock (SingletonLock.Instance)
+                {
+                    UpdateState(saveWork);
+                }
             }
+        }
+
+        /// <summary>
+        /// Tell if all priority files are saved
+        /// </summary>
+        /// <returns>true if finished or false if not </returns>
+        public static bool IsAllPriorityFilesSaved()
+        {
+            List<SaveWork> Backups = GetAllBackups();
+            foreach (var backup in Backups)
+            {
+                if (backup.Priority)
+                {
+                    return false;
+                }
+            }
+            return true;
         }
 
         /// <summary>
